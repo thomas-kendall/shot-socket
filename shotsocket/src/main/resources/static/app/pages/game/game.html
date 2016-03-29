@@ -1,0 +1,25 @@
+<div ng-hide="playerConnected">
+	<h3>Join with your phone</h3>
+	<p>Scan the QR code below with a QR code reader or visit the following URL with your phone: {{ gameControllerUrl }}
+	<div id="gameControllerUrlQrCode"></div>
+</div>
+
+<div ng-show="playerConnected">
+	<table>
+		<tbody>
+			<tr>
+				<td>Tilt Left/Right</td>
+				<td>{{deviceOrientation.tiltLR}}</td>			
+			</tr>
+			<tr>
+				<td>Tilt Front/Back</td>
+				<td>{{deviceOrientation.tiltFB}}</td>			
+			</tr>
+			<tr>
+				<td>Direction</td>
+				<td>{{deviceOrientation.dir}}</td>			
+			</tr>
+		</tbody>
+	</table>
+	<canvas id="canvas"></canvas>
+</div>
