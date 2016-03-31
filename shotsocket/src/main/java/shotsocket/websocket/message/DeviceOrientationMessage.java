@@ -3,43 +3,43 @@ package shotsocket.websocket.message;
 public class DeviceOrientationMessage extends ShotsocketMessage {
 	public static final String ACTION = "device-orientation";
 
-	private double tiltLR;
-	private double tiltFB;
-	private double dir;
+	private double alpha;
+	private double beta;
+	private double gamma;
 
 	public DeviceOrientationMessage() {
 		super(ACTION);
 	}
 
-	public DeviceOrientationMessage(double tiltLR, double tiltFB, double dir) {
+	public DeviceOrientationMessage(double alpha, double beta, double gamma) {
 		super(ACTION);
-		setTiltLR(tiltLR);
-		setTiltFB(tiltFB);
-		setDir(dir);
+		setAlpha(alpha);
+		setBeta(beta);
+		setGamma(gamma);
 	}
 
-	public double getDir() {
-		return dir;
+	public double getAlpha() {
+		return alpha;
 	}
 
-	public double getTiltFB() {
-		return tiltFB;
+	public double getBeta() {
+		return beta;
 	}
 
-	public double getTiltLR() {
-		return tiltLR;
+	public double getGamma() {
+		return gamma;
 	}
 
-	public void setDir(double dir) {
-		this.dir = dir;
+	public void setAlpha(double alpha) {
+		this.alpha = alpha;
 	}
 
-	public void setTiltFB(double tiltFB) {
-		this.tiltFB = tiltFB;
+	public void setBeta(double beta) {
+		this.beta = beta;
 	}
 
-	public void setTiltLR(double tiltLR) {
-		this.tiltLR = tiltLR;
+	public void setGamma(double gamma) {
+		this.gamma = gamma;
 	}
 
 }

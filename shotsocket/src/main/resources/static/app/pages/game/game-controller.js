@@ -15,9 +15,9 @@ var ctrl = function($scope, $location, networkService) {
 		} else if(message.action === 'player-disconnected'){
 			$scope.playerConnected = false;
 		} else if(message.action === 'device-orientation'){
-			$scope.deviceOrientation.tiltLR = message.tiltLR;
-			$scope.deviceOrientation.tiltFB = message.tiltFB;
-			$scope.deviceOrientation.dir = message.dir;
+			$scope.deviceOrientation.alpha = message.alpha;
+			$scope.deviceOrientation.beta = message.beta;
+			$scope.deviceOrientation.gamma = message.gamma;
 			drawScene();
 		}
 		
@@ -35,7 +35,7 @@ var ctrl = function($scope, $location, networkService) {
 			ctx.clearRect(0, 0, canvas.width, canvas.height);
 			
 			var h = canvas.height / 2;
-			var angle = toRadians($scope.deviceOrientation.dir);
+			var angle = toRadians($scope.deviceOrientation.alpha);
 			var dx = h * Math.cos(angle);
 			var dy = h * Math.sin(angle);
 			var x = canvas.width / 2 + dx;

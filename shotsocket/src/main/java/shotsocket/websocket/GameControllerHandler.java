@@ -28,7 +28,7 @@ public class GameControllerHandler extends TextWebSocketHandler {
 			game.getDisplaySession()
 					.sendMessage(new TextMessage(ShotsocketMessageMarshaller.toJSON(playerDisconnectedMessage)));
 			game.setControllerSession(null);
-			System.out.println("Game player disconnected: " + game.getGameId());
+			System.out.println("Game " + game.getGameId() + " - player disconnected");
 		}
 	}
 
@@ -43,7 +43,7 @@ public class GameControllerHandler extends TextWebSocketHandler {
 		if (message instanceof JoinGameMessage) {
 			JoinGameMessage joinGameMessage = (JoinGameMessage) message;
 			Game game = shotsocketService.joinGame(joinGameMessage.getGameId(), session);
-			System.out.println("Game player connected: " + game.getGameId());
+			System.out.println("Game " + game.getGameId() + " - player connected");
 			PlayerConnectedMessage playerConnectedMessage = new PlayerConnectedMessage();
 			game.getDisplaySession()
 					.sendMessage(new TextMessage(ShotsocketMessageMarshaller.toJSON(playerConnectedMessage)));

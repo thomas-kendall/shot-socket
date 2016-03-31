@@ -25,16 +25,16 @@ var ctrl = function($scope, $location, $routeParams, networkService) {
 	};
 	
 	var onDeviceOrientation = function(eventData) {
-		$scope.deviceOrientation.tiltLR = eventData.gamma; // tilt left-to-right (degrees)
-		$scope.deviceOrientation.tiltFB = eventData.beta;  // tilt front-to-back (degrees)
-		$scope.deviceOrientation.dir = eventData.alpha;    // the compass direction the device is facing (degrees)
+		$scope.deviceOrientation.alpha = eventData.alpha;    // the compass direction the device is facing (degrees)
+		$scope.deviceOrientation.beta = eventData.beta;  // tilt front-to-back (degrees)
+		$scope.deviceOrientation.gamma = eventData.gamma;  // tilt left-to-right (degrees)
 		$scope.$apply();
 		
 		var message = {
 			action: 'device-orientation',
-			tiltLR: $scope.deviceOrientation.tiltLR,
-			tiltFB: $scope.deviceOrientation.tiltFB,
-			dir: $scope.deviceOrientation.dir
+			alpha: $scope.deviceOrientation.alpha,
+			beta: $scope.deviceOrientation.beta,
+			gamma: $scope.deviceOrientation.gamma
 		};
 		socket.send(JSON.stringify(message));		
 	};

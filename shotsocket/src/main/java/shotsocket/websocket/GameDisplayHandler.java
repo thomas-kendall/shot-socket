@@ -23,7 +23,7 @@ public class GameDisplayHandler extends TextWebSocketHandler {
 			if (game.getControllerSession() != null) {
 				game.getControllerSession().close();
 			}
-			System.out.println("Game removed: " + game.getGameId());
+			System.out.println("Game " + game.getGameId() + " - game removed");
 			shotsocketService.removeGame(game);
 		}
 	}
@@ -31,7 +31,7 @@ public class GameDisplayHandler extends TextWebSocketHandler {
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 		Game game = shotsocketService.createNewGame(session);
-		System.out.println("Game created: " + game.getGameId());
+		System.out.println("Game " + game.getGameId() + " - game created");
 		NewGameMessage message = new NewGameMessage(game.getGameId());
 		session.sendMessage(new TextMessage(ShotsocketMessageMarshaller.toJSON(message)));
 	}
