@@ -8,18 +8,20 @@
 	<table>
 		<tbody>
 			<tr>
-				<td>alpha (direction)</td>
-				<td>{{deviceOrientation.alpha}}</td>			
+				<td class="col-md-3">alpha (direction)</td>
+				<td class="col-md-3">{{deviceOrientation.alpha | number}}</td>			
+				<td class="col-md-6"><canvas id="canvas-alpha"></canvas></td>			
 			</tr>
 			<tr>
-				<td>beta (tilt front/back)</td>
-				<td>{{deviceOrientation.beta}}</td>			
+				<td class="col-md-3">beta (tilt front/back)</td>
+				<td class="col-md-3">{{deviceOrientation.beta | number}}</td>			
+				<td class="col-md-6"><canvas id="canvas-beta"></canvas></td>			
 			</tr>
 			<tr>
-				<td>gamma (tilt left/right)</td>
-				<td>{{deviceOrientation.gamma}}</td>			
+				<td class="col-md-3">gamma (tilt left/right)</td>
+				<td class="col-md-3">{{deviceOrientation.gamma | number}}</td>			
+				<td class="col-md-6"><canvas id="canvas-gamma"></canvas></td>			
 			</tr>
 		</tbody>
 	</table>
-	<canvas id="canvas"></canvas>
 </div>

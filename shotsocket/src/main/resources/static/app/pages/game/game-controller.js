@@ -3,6 +3,12 @@ var ctrl = function($scope, $location, networkService) {
 	$scope.gameControllerUrl = '';
 	$scope.playerConnected = false;
 	$scope.deviceOrientation = {};
+	$scope.canvasAlpha = null;
+	$scope.rectAlpha = null;
+	$scope.canvasBeta = null;
+	$scope.rectBeta = null;
+	$scope.canvasGamma = null;
+	$scope.rectGamma = null;
 		
 	var socketMessageReceived = function(e) {
 		var message = JSON.parse(e.data);
@@ -18,46 +24,45 @@ var ctrl = function($scope, $location, networkService) {
 			$scope.deviceOrientation.alpha = message.alpha;
 			$scope.deviceOrientation.beta = message.beta;
 			$scope.deviceOrientation.gamma = message.gamma;
-			drawScene();
+			drawScene($scope.canvasAlpha, $scope.deviceOrientation.alpha); //    0 to 360
+			drawScene($scope.canvasBeta, $scope.deviceOrientation.beta);   // -180 to 180
+			drawScene($scope.canvasGamma, $scope.deviceOrientation.gamma * 2); //  -90 to  90
 		}
 		
 		$scope.$apply();
 	};
 	
-	var drawScene = function() {
-		var canvas = document.getElementById('canvas');
-		if(canvas) {
-			var ctx = canvas.getContext('2d');
-						
-			// background
-//			ctx.fillStyle = 'rgb(100, 100, 100)';
-//			ctx.fillRect(0, 0, canvas.width, canvas.height);
-			ctx.clearRect(0, 0, canvas.width, canvas.height);
-			
-			var h = canvas.height / 2;
-			var angle = toRadians($scope.deviceOrientation.alpha);
-			var dx = h * Math.cos(angle);
-			var dy = h * Math.sin(angle);
-			var x = canvas.width / 2 + dx;
-			var y = canvas.height / 2 + dy;
-			
-			// draw a line
-			ctx.beginPath();
-			ctx.moveTo(canvas.width / 2, canvas.height / 2);
-			ctx.lineTo(x, y);
-			ctx.closePath();
-			ctx.stroke();
-		}
+	var setupScenes = function() {
+		$scope.canvasAlpha = new fabric.Canvas('canvas-alpha');
+		$scope.canvasBeta = new fabric.Canvas('canvas-beta');
+		$scope.canvasGamma = new fabric.Canvas('canvas-gamma');
 	};
 	
-	var toRadians = function(degrees) {
-		return degrees * Math.PI / 180;
-	}
+	var drawScene = function(canvas, angle) {
+		var rect = canvas.item(0);
+		if(!rect){
+			var rectWidth = 4;
+			var rectHeight = 50;
+			rect = new fabric.Rect({
+				left: canvas.width/2 - rectWidth/2,
+				top: (canvas.height - rectHeight)/2,
+				fill: 'red',
+				width: rectWidth,
+				height: rectHeight,
+			});			
+			canvas.add(rect);
+		}
+		
+		rect.set({
+			angle: angle
+		});
+		canvas.renderAll();
+	};
 	
+	setupScenes();
 	var socketUrl = networkService.getWebsocketUrl('/game-display');
 	var socket = new WebSocket(socketUrl);
-	socket.onmessage = socketMessageReceived;
-	
+	socket.onmessage = socketMessageReceived;	
 };
 
 var app = angular.module('spa');
